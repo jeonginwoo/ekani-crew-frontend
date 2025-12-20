@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
 import Header from '@/components/Header';
 
@@ -14,6 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      <GoogleTagManager gtmId="GTM-WDV8TXKS" />
       <body className="bg-gradient-to-b from-pink-50 to-purple-50 text-gray-700">
         <Header />
 
