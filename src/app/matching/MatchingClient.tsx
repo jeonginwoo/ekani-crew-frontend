@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/Header';
 import { useAuth } from '@/hooks/useAuth';
 import { requestMatch, cancelMatch, MatchRequestResponse } from '@/lib/api';
 
@@ -94,22 +93,17 @@ export default function MatchingClient() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
-        <Header />
-        <main className="max-w-2xl mx-auto px-4 py-8">
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
-          </div>
-        </main>
+      <div className="max-w-2xl mx-auto">
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
-      <Header />
-      <main className="max-w-2xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-3xl shadow-lg p-8">
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-3xl shadow-lg p-8">
           {/* 타이틀 */}
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">MBTI 매칭</h1>
@@ -222,11 +216,10 @@ export default function MatchingClient() {
           )}
         </div>
 
-        {/* 안내 문구 */}
-        <div className="mt-6 text-center text-gray-500 text-sm">
-          <p>무료 사용자는 하루 3회까지 매칭할 수 있습니다.</p>
-        </div>
-      </main>
+      {/* 안내 문구 */}
+      <div className="mt-6 text-center text-gray-500 text-sm">
+        <p>무료 사용자는 하루 3회까지 매칭할 수 있습니다.</p>
+      </div>
     </div>
   );
 }

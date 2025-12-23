@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/Header';
 import { useAuth } from '@/hooks/useAuth';
 
 // 더미 데이터 (API 연동 전까지 사용)
@@ -69,24 +68,19 @@ export default function ChatListClient() {
 
   if (loading || isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
-        <Header />
-        <main className="max-w-2xl mx-auto px-4 py-8">
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
-          </div>
-        </main>
+      <div className="max-w-2xl mx-auto">
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
-      <Header />
-      <main className="max-w-2xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-          {/* 헤더 */}
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+        {/* 타이틀 */}
+        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h1 className="text-xl font-bold text-gray-800">채팅</h1>
             <button
               onClick={() => router.push('/matching')}
@@ -148,12 +142,11 @@ export default function ChatListClient() {
           )}
         </div>
 
-        {/* 안내 문구 */}
-        <div className="mt-6 text-center text-gray-400 text-sm">
-          <p>채팅방 목록은 더미 데이터입니다.</p>
-          <p>실제 API 연동 후 실제 데이터로 교체됩니다.</p>
-        </div>
-      </main>
+      {/* 안내 문구 */}
+      <div className="mt-6 text-center text-gray-400 text-sm">
+        <p>채팅방 목록은 더미 데이터입니다.</p>
+        <p>실제 API 연동 후 실제 데이터로 교체됩니다.</p>
+      </div>
     </div>
   );
 }

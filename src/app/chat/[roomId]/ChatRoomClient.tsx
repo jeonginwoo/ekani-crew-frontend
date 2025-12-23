@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from '@/components/Header';
 import { useAuth } from '@/hooks/useAuth';
 import { getChatWebSocketUrl, ChatWebSocketResponse } from '@/lib/api';
 
@@ -118,22 +117,17 @@ export default function ChatRoomClient({ roomId }: ChatRoomClientProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
-        <Header />
-        <main className="max-w-2xl mx-auto px-4 py-8">
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
-          </div>
-        </main>
+      <div className="max-w-2xl mx-auto">
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50 flex flex-col">
-      <Header />
-      <main className="flex-1 max-w-2xl mx-auto w-full px-4 py-4 flex flex-col">
-        <div className="bg-white rounded-3xl shadow-lg flex-1 flex flex-col overflow-hidden">
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white rounded-3xl shadow-lg flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 200px)' }}>
           {/* 채팅방 헤더 */}
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -228,7 +222,7 @@ export default function ChatRoomClient({ roomId }: ChatRoomClientProps) {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
