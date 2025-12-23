@@ -124,27 +124,62 @@ export default function Home() {
         </div>
       </section>
 
-      {/* MBTI 심층 분석 */}
+      {/* 사용 후기 */}
       <section className="bg-white rounded-3xl p-8 shadow-sm">
         <h2 className="text-xl font-bold text-center text-gray-700 mb-6">
-          MBTI 심층 분석
+          사용 후기
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 rounded-2xl bg-pink-50">
-            <div className="text-2xl font-bold text-pink-500 mb-1">E / I</div>
-            <div className="text-xs text-gray-500">외향 / 내향</div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="p-5 rounded-2xl bg-pink-50">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">💘</span>
+              <span className="font-bold text-pink-600">INFP</span>
+              <span className="text-xs text-gray-400">메시지 변환 이용</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed mb-2">
+              "INTJ 썸녀한테 어떻게 말해야 할지 몰라서 맨날 읽씹당했는데,
+              여기서 변환한 메시지로 보내니까 바로 답장 옴ㅋㅋ
+              결국 고백도 성공했습니다. 진짜 감사해요!"
+            </p>
+            <div className="text-xs text-pink-400">⭐⭐⭐⭐⭐</div>
           </div>
-          <div className="text-center p-4 rounded-2xl bg-purple-50">
-            <div className="text-2xl font-bold text-purple-500 mb-1">S / N</div>
-            <div className="text-xs text-gray-500">감각 / 직관</div>
+          <div className="p-5 rounded-2xl bg-purple-50">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">💼</span>
+              <span className="font-bold text-purple-600">ENFP</span>
+              <span className="text-xs text-gray-400">상담 이용</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed mb-2">
+              "ISTJ 팀장님이랑 소통이 너무 힘들었는데,
+              상담받고 나서 어떻게 보고해야 하는지 감이 잡혔어요.
+              요즘 팀장님이 제 보고서 칭찬해주세요!"
+            </p>
+            <div className="text-xs text-purple-400">⭐⭐⭐⭐⭐</div>
           </div>
-          <div className="text-center p-4 rounded-2xl bg-pink-50">
-            <div className="text-2xl font-bold text-pink-500 mb-1">T / F</div>
-            <div className="text-xs text-gray-500">사고 / 감정</div>
+          <div className="p-5 rounded-2xl bg-indigo-50">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">🧠</span>
+              <span className="font-bold text-indigo-600">ISTP</span>
+              <span className="text-xs text-gray-400">MBTI 검사 이용</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed mb-2">
+              "다른 사이트에서는 맨날 다른 결과 나왔는데
+              여기는 채팅으로 해서 그런지 제일 정확한 것 같아요.
+              질문도 제 답변에 맞춰서 나와서 신기했음"
+            </p>
+            <div className="text-xs text-indigo-400">⭐⭐⭐⭐⭐</div>
           </div>
-          <div className="text-center p-4 rounded-2xl bg-purple-50">
-            <div className="text-2xl font-bold text-purple-500 mb-1">J / P</div>
-            <div className="text-xs text-gray-500">판단 / 인식</div>
+          <div className="p-5 rounded-2xl bg-rose-50">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-2xl">👥</span>
+              <span className="font-bold text-rose-600">INFJ</span>
+              <span className="text-xs text-gray-400">매칭 이용</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed mb-2">
+              "같은 INFJ랑 대화하니까 말 안 해도 서로 이해돼서 좋았어요.
+              평소에 공감 받기 힘들었는데 여기서 위로 많이 받았습니다 ㅠㅠ"
+            </p>
+            <div className="text-xs text-rose-400">⭐⭐⭐⭐⭐</div>
           </div>
         </div>
       </section>
