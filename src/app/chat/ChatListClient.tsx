@@ -152,6 +152,9 @@ export default function ChatListClient() {
     let levelIndex = 0;
 
     try {
+      // 루프 시작 전 로딩 해제 (취소 버튼 활성화)
+      setIsMatchingLoading(false);
+
       // 유저가 취소할 때까지 계속 매칭 시도
       while (matchingStatusRef.current === 'waiting') {
         const currentLevel = MATCHING_LEVELS[levelIndex];
