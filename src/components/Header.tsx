@@ -45,6 +45,18 @@ export default function Header() {
             >
               채팅
             </Link>
+            <Link
+              href="/community/balance"
+              className="px-4 py-2 rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 text-sm font-medium transition"
+            >
+              밸런스게임
+            </Link>
+            <Link
+              href="/community/posts"
+              className="px-4 py-2 rounded-full bg-teal-100 text-teal-600 hover:bg-teal-200 text-sm font-medium transition"
+            >
+              게시판
+            </Link>
             {loading ? (
               <div className="px-4 py-2 text-sm text-gray-400">로딩중...</div>
             ) : isLoggedIn ? (

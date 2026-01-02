@@ -412,3 +412,288 @@ export interface ChatWebSocketResponse {
   content: string;
 }
 
+// ============================================
+// 커뮤니티 API
+// ============================================
+
+/**
+ * 토픽 응답
+ */
+export interface Topic {
+  id: string;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  is_active: boolean;
+}
+
+/**
+ * 현재 활성 토픽 조회
+ */
+export async function getCurrentTopic(): Promise<Topic | null> {
+  try {
+    return await apiFetch<Topic>('/community/topics/current');
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 게시글 타입
+ *
+ */
+export type PostType = 'topic' | 'free';
+
+/**
+ * 게시글 응답
+ */
+export interface Post {
+  id: string;
+  author_id: string;
+  title: string;
+  content: string;
+  post_type: PostType;
+  topic_id: string | null;
+  created_at: string;
+}
+
+/**
+ * 게시글 목록 응답
+ */
+export interface PostListResponse {
+  items: Post[];
+  total: number;
+  page: number;
+  size: number;
+}
+
+/**
+ * 게시글 목록 조회
+ */
+export async function getPosts(
+  type?: PostType,
+  page: number = 1,
+  size: number = 10
+): Promise<PostListResponse> {
+  const params = new URLSearchParams();
+  if (type) params.set('type', type);
+  params.set('page', String(page));
+  params.set('size', String(size));
+  return apiFetch<PostListResponse>(`/community/posts?${params.toString()}`);
+}
+
+/**
+ * 게시글 상세 조회
+ */
+export async function getPost(postId: string): Promise<Post> {
+  return apiFetch<Post>(`/community/posts/${postId}`);
+}
+
+/**
+ * 게시글 작성 요청
+ */
+export interface CreatePostData {
+  author_id: string;
+  title: string;
+  content: string;
+  post_type: PostType;
+  topic_id?: string | null;
+}
+
+/**
+ * 게시글 작성
+ */
+export async function createPost(data: CreatePostData): Promise<Post> {
+  return apiFetch<Post>('/community/posts', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+/**
+ * 댓글 응답
+ */
+export interface Comment {
+  id: string;
+  post_id?: string;
+  game_id?: string;
+  author_id: string;
+  author_mbti: string | null;
+  content: string;
+  created_at: string;
+}
+
+/**
+ * 댓글 목록 응답
+ */
+export interface CommentListResponse {
+  items: Comment[];
+}
+
+/**
+ * 게시글 댓글 목록 조회
+ */
+export async function getPostComments(postId: string): Promise<CommentListResponse> {
+  return apiFetch<CommentListResponse>(`/community/posts/${postId}/comments`);
+}
+
+/**
+ * 댓글 작성 요청
+ */
+export interface CreateCommentData {
+  author_id: string;
+  content: string;
+}
+
+/**
+ * 게시글 댓글 작성
+ */
+export async function createPostComment(
+  postId: string,
+  data: CreateCommentData
+): Promise<Comment> {
+  return apiFetch<Comment>(`/community/posts/${postId}/comments`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+/**
+ * 밸런스 게임 응답
+ */
+export interface BalanceGame {
+  id: string;
+  question: string;
+  option_left: string;
+  option_right: string;
+  week_of: string;
+  is_active: boolean;
+}
+
+/**
+ * 현재 밸런스 게임 조회
+ */
+export async function getCurrentBalanceGame(): Promise<BalanceGame | null> {
+  try {
+    return await apiFetch<BalanceGame>('/community/balance/current');
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 밸런스 게임 투표 요청
+ */
+export interface VoteBalanceGameData {
+  user_id: string;
+  user_mbti: string;
+  choice: 'left' | 'right';
+}
+
+/**
+ * 밸런스 게임 투표 응답
+ */
+export interface VoteBalanceGameResponse {
+  vote_id: string;
+  choice: string;
+}
+
+/**
+ * 밸런스 게임 투표
+ */
+export async function voteBalanceGame(
+  gameId: string,
+  data: VoteBalanceGameData
+): Promise<VoteBalanceGameResponse> {
+  return apiFetch<VoteBalanceGameResponse>(`/community/balance/${gameId}/vote`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+/**
+ * MBTI별 투표 현황
+ */
+export interface MBTIBreakdown {
+  left: number;
+  right: number;
+}
+
+/**
+ * 밸런스 게임 결과 응답
+ */
+export interface BalanceResult {
+  total_votes: number;
+  left_votes: number;
+  right_votes: number;
+  left_percentage: number;
+  right_percentage: number;
+  mbti_breakdown: Record<string, MBTIBreakdown>;
+}
+
+/**
+ * 밸런스 게임 결과 조회
+ */
+export async function getBalanceResult(gameId: string): Promise<BalanceResult> {
+  return apiFetch<BalanceResult>(`/community/balance/${gameId}/result`);
+}
+
+/**
+ * 밸런스 게임 댓글 목록 조회
+ */
+export async function getBalanceGameComments(gameId: string): Promise<CommentListResponse> {
+  return apiFetch<CommentListResponse>(`/community/balance/${gameId}/comments`);
+}
+
+/**
+ * 밸런스 게임 댓글 작성
+ */
+export async function createBalanceGameComment(
+  gameId: string,
+  data: CreateCommentData
+): Promise<Comment> {
+  return apiFetch<Comment>(`/community/balance/${gameId}/comments`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  });
+}
+
+// ============================================
+// 상담 히스토리 API
+// ============================================
+
+/**
+ * 상담 분석 결과
+ */
+export interface ConsultAnalysis {
+  situation: string;
+  traits: string;
+  solutions: string;
+  cautions: string;
+}
+
+/**
+ * 상담 세션
+ */
+export interface ConsultHistorySession {
+  id: string;
+  created_at: string;
+  mbti: string;
+  gender: 'MALE' | 'FEMALE';
+  analysis: ConsultAnalysis | null;
+}
+
+/**
+ * 상담 히스토리 응답
+ */
+export interface ConsultHistoryResponse {
+  sessions: ConsultHistorySession[];
+}
+
+/**
+ * 상담 히스토리 조회
+ */
+export async function getConsultHistory(): Promise<ConsultHistoryResponse> {
+  return apiFetch<ConsultHistoryResponse>('/consult/history');
+}
