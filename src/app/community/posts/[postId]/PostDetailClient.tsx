@@ -12,17 +12,7 @@ import {
   type Comment,
   type CreateCommentData,
 } from '@/lib/api';
-
-function formatTime(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
+import { formatDateTime } from '@/lib/date';
 
 export default function PostDetailClient() {
   const params = useParams();
@@ -127,7 +117,7 @@ export default function PostDetailClient() {
             </span>
             <div className="flex-1">
               <h1 className="text-xl font-bold text-gray-800">{post.title}</h1>
-              <p className="text-sm text-gray-400 mt-1">{formatTime(post.created_at)}</p>
+              <p className="text-sm text-gray-400 mt-1">{formatDateTime(post.created_at)}</p>
             </div>
           </div>
 

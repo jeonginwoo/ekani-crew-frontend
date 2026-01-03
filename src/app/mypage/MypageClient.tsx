@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { getConsultHistory, ConsultHistorySession } from '@/lib/api';
 import { useAuth } from '@/hooks/useAuth';
+import { formatDateTime } from '@/lib/date';
 
 export default function MypageClient() {
   const { user } = useAuth();
@@ -16,8 +17,9 @@ export default function MypageClient() {
       try {
         const response = await getConsultHistory();
         setSessions(response.sessions);
-      } catch (err: any) {
-        setError(err.message || '히스토리를 불러오는 중 오류가 발생했습니다.');
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : '히스토리를 불러오는 중 오류가 발생했습니다.';
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }
@@ -25,17 +27,6 @@ export default function MypageClient() {
 
     fetchHistory();
   }, []);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('ko-KR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
@@ -77,7 +68,7 @@ export default function MypageClient() {
                     <span className="text-2xl">📝</span>
                     <div className="text-left">
                       <div className="font-medium text-gray-700">
-                        {formatDate(session.created_at)}
+                        {formatDateTime(session.created_at)}
                       </div>
                       <div className="text-sm text-gray-400">
                         {session.mbti} / {session.gender === 'MALE' ? '남성' : '여성'}

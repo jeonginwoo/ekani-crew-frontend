@@ -12,6 +12,7 @@ import {
   MatchNotification,
   ChatRoomPreview,
 } from '@/lib/api';
+import { formatRelativeTime } from '@/lib/date';
 
 type MatchingStatus = 'idle' | 'waiting' | 'matched';
 
@@ -24,21 +25,6 @@ interface ChatRoom {
   unreadCount: number;
 }
 
-// 시간 포맷팅 헬퍼
-function formatTime(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMin = Math.floor(diffMs / 60000);
-  const diffHour = Math.floor(diffMs / 3600000);
-  const diffDay = Math.floor(diffMs / 86400000);
-
-  if (diffMin < 1) return '방금';
-  if (diffMin < 60) return `${diffMin}분 전`;
-  if (diffHour < 24) return `${diffHour}시간 전`;
-  if (diffDay < 7) return `${diffDay}일 전`;
-  return date.toLocaleDateString('ko-KR');
-}
 
 export default function ChatListClient() {
   const router = useRouter();
@@ -100,8 +86,8 @@ export default function ChatListClient() {
       partnerMbti: null, // 백엔드에서 제공 안함 - 추후 연동 필요
       lastMessage: room.latest_message?.content || '새로운 채팅방입니다',
       lastMessageTime: room.latest_message
-        ? formatTime(room.latest_message.created_at)
-        : formatTime(room.created_at),
+        ? formatRelativeTime(room.latest_message.created_at)
+        : formatRelativeTime(room.created_at),
       unreadCount: room.unread_count,
     };
   }, []);

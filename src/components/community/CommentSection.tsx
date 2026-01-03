@@ -5,26 +5,12 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import MBTIBadge from './MBTIBadge';
 import type { Comment, CreateCommentData } from '@/lib/api';
+import { formatRelativeTime } from '@/lib/date';
 
 interface CommentSectionProps {
   comments: Comment[];
   onSubmit: (data: CreateCommentData) => Promise<void>;
   isLoading?: boolean;
-}
-
-function formatTime(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffMin = Math.floor(diffMs / 60000);
-  const diffHour = Math.floor(diffMs / 3600000);
-  const diffDay = Math.floor(diffMs / 86400000);
-
-  if (diffMin < 1) return '방금';
-  if (diffMin < 60) return `${diffMin}분 전`;
-  if (diffHour < 24) return `${diffHour}시간 전`;
-  if (diffDay < 7) return `${diffDay}일 전`;
-  return date.toLocaleDateString('ko-KR');
 }
 
 export default function CommentSection({ comments, onSubmit, isLoading = false }: CommentSectionProps) {
@@ -97,7 +83,7 @@ export default function CommentSection({ comments, onSubmit, isLoading = false }
             <div key={comment.id} className="p-4 bg-gray-50 rounded-xl">
               <div className="flex items-center gap-2 mb-2">
                 <MBTIBadge mbti={comment.author_mbti} size="sm" />
-                <span className="text-xs text-gray-400">{formatTime(comment.created_at)}</span>
+                <span className="text-xs text-gray-400">{formatRelativeTime(comment.created_at)}</span>
               </div>
               <p className="text-gray-700 text-sm whitespace-pre-wrap">{comment.content}</p>
             </div>

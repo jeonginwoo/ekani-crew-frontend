@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { getChatWebSocketUrl, getChatHistory, markRoomAsRead, leaveChatRoom, reportMessage, ChatWebSocketResponse, ReportReason } from '@/lib/api';
+import { toDate, formatTime } from '@/lib/date';
 
 interface Message {
   id: string;
@@ -87,7 +88,7 @@ export default function ChatRoomClient({ roomId }: ChatRoomClientProps) {
           senderId: msg.sender_id,
           content: msg.content,
           isMine: msg.sender_id === userId,
-          timestamp: new Date(msg.created_at),
+          timestamp: toDate(msg.created_at),
         }));
         setMessages(loadedMessages);
 
